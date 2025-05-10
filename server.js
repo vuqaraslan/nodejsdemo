@@ -4,11 +4,14 @@ import express from "express";
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
-import todosRoute from './routes/todos.js';
+import todosRoute from './routes/todos.route.js';
 import usersRoute from './routes/users.route.js';
+import cookieParser from "cookie-parser";
+import authRoute from "./routes/auth.route.js";
 
-
-dotenv.config();
+dotenv.config();// Node.js layihələrində .env adlı fayldakı konfiqurasiya dəyişənlərini 
+// (məsələn, gizli API açarları, verilənlər bazası bağlantı məlumatları və s.) prosesə (process.env) avtomatik
+// olaraq yükləmək üçün istifadə olunur.
 
 // console.log(process.env.MONGO_URI);
 
@@ -16,11 +19,12 @@ const app=express();
 // const port=3000;
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use('/api/todos',todosRoute);
 app.use('/api/users',usersRoute);
-
+app.use('/api/auth',authRoute);
 
 const connectDB=async ()=>{
     try {

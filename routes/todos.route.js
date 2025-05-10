@@ -1,5 +1,7 @@
 import express from "express";
 import { createTodo, deleteTodo, getTodoById, getTodos, updateTodo } from "../controllers/todos.controller.js";
+import { protectedRoute } from "../middleware/protectedRoute.js";
+import { checkAdmin } from "../middleware/checkAdmin.js";
 
 const router=express.Router();
 
@@ -8,7 +10,7 @@ const router=express.Router();
 //     res.json({message:"(express) Todos GET request received !"});
 // });
 
-router.get('/',getTodos);
+router.get('/',protectedRoute,getTodos);
 
 //GET todo by id method
 // router.get('/todo/:id',(req,res)=>{
@@ -45,7 +47,7 @@ router.put('/edit/:id',updateTodo);
 //     const {id}=req.params;
 //     res.json({message:`(express) DELETE- request to remove todos ${id}`});
 // });
-router.delete('/delete/:id',deleteTodo);
+router.delete('/delete/:id',protectedRoute,checkAdmin,deleteTodo);
 
 
 export default router;
