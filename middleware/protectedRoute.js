@@ -10,7 +10,7 @@ export const protectedRoute=async (req,res,next)=>{
         }
 
         const decoded =jwt.verify(accessToken,process.env.ACCESS_TOKEN_SECRET);
-        console.log("__________________________")
+        console.log("__>>__>>____>>___>>__>>___")
         console.log(decoded);
         /*
         {
@@ -20,7 +20,7 @@ export const protectedRoute=async (req,res,next)=>{
             exp: 1746818993
         }
          */
-        console.log("__________________________")
+        // console.log("__________________________")
         if(!decoded){
             return res.status(401).json({succes:false,message:"Unauthorized - Invalid Token !"})
         }

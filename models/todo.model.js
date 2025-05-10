@@ -15,6 +15,11 @@ const todoSchema = mongoose.Schema({
   timestamp:{
     type:Date,
     value:Date.now
+  },
+  author:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"User",
+    required:[true,"Author is required !"]
   }
 });
 
