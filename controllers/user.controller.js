@@ -1,4 +1,5 @@
 import { User } from "../models/user.model.js";
+import appLog from "../appLog/applog.js";
 
 export const getUsers = async (req, res) => {
   try {
@@ -7,16 +8,21 @@ export const getUsers = async (req, res) => {
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
+    appLog.logError("getUsers",500,error.message);
   }
 };
 
 export const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: "User not found !" });
+    if (!user){
+      appLog.logError("getUserById",404,"User not found !");
+      return res.status(404).json({ message: "User not found !" });
+    } 
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
+    appLog.logError("getUserById",200,error.message);
   }
 };
 
@@ -32,6 +38,7 @@ export const getMe = async (req, res) => {
     res.status(200).json(me);
   } catch (error) {
     res.status(500).json({ message: error.message });
+    appLog.logError("getMe",500,error.message);
   }
 };
 
@@ -53,6 +60,7 @@ export const createUser = async (req, res) => {
     res.status(201).json(savedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
+    appLog.logError("createUser",400,error.message);
   }
 };
 
@@ -61,21 +69,27 @@ export const updateUser = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    if (!updatedUser)
+    if (!updatedUser){
+      appLog.logError("updateUser",404,"User not found !");
       return res.status(404).json({ message: "User not found !" });
+    }
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
+    appLog.logError("updateUser",400,error.message);
   }
 };
 
 export const deleteUser = async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
-    if (!deletedUser)
+    if (!deletedUser){
+      appLog.logError("deleteUser",404,"User not found !");
       return res.status(404).json({ message: "User not found !" });
+    }
     res.status(200).json({ message: "User deleted successfully !" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+    appLog.logError("deleteUser",500,error.message);
   }
 };

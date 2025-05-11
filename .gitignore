@@ -1,2 +1,5 @@
 .env
 node_modules
+errorLogs.txt
+renamedTest.txt
+writeDemo.txt

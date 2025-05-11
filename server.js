@@ -9,6 +9,19 @@ import usersRoute from './routes/users.route.js';
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.route.js";
 
+// import fs from "fs";
+
+// process.on("exit",()=>{
+// });
+
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+// console.log('-------------------------------------')
+// console.log(__dirname);
+// console.log(__filename);
+
 dotenv.config();// Node.js layihələrində .env adlı fayldakı konfiqurasiya dəyişənlərini 
 // (məsələn, gizli API açarları, verilənlər bazası bağlantı məlumatları və s.) prosesə (process.env) avtomatik
 // olaraq yükləmək üçün istifadə olunur.

@@ -1,4 +1,5 @@
 import { Todo } from "../models/todo.model.js";
+import appLog from "../appLog/applog.js";
 
 export const getTodos = async (req, res) => {
   // const { accessToken } = req.cookies;
@@ -17,6 +18,7 @@ export const getTodos = async (req, res) => {
     res.status(200).json(todos);
   } catch (error) {
     res.status(500).json({ message: error.message });
+    appLog.logError("getTodos",500,error.message);
   }
 };
 
@@ -27,6 +29,7 @@ export const getMyTodos=async (req,res)=>{
     const myTodos = await Todo.find({author:me.id}).populate("author","name surname email");
     res.status(200).json(myTodos);
   } catch (error) {
+    appLog.logError("getMyTodos",500,error.message);
     res.status(500).json({ message: error.message });
   }
 };
